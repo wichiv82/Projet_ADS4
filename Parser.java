@@ -1,8 +1,10 @@
 import java.util.*;
+import java.io.*;
 
 class Parser {
 	/*
-	 * document → corps
+	 * document → declarations corps
+	 * declarations → \set{ id } { constante_couleur } declarations | ε	
 	 * corps → \begindoc suite_elements \enddoc
 	 * suite_elements → element suite_elements | ε
 	 * element → mot
@@ -10,6 +12,8 @@ class Parser {
 	 * 	| \bf{ suite_elements }
 	 * 	| \it{ suite_elements }
 	 *	| enumeration
+	 *  | \couleur{ val_col } { suite_elemements }
+	 * val_col → constante_couleur | id
 	 * enumeration → \beginenum suite_items \endenum
 	 * suite_items → item suite_items | ε
 	 * item → \item suite_elements
@@ -20,7 +24,17 @@ class Parser {
 	public Parser(LookAhead r) {
 		this.reader=r;
 	}
-
+	
+	public Arbre nonterm_Declaration() throws Exception {
+		reader.eat(Sym.SET);
+		reader.eat(Sym.DEBUTACCOLADE);
+		reader.eat(Sym.SET);
+		List<Arbre> tmp = nonterm_SuiteElem();
+		reader.eat(Sym.FINDOC);
+		reader.eat(Sym.EOF);
+		return new Arbre("<!DOCTYPE html>\n<html>\n<body>\n","\n</body>\n</html>",tmp);
+	}
+	
 	public Arbre nonterm_Corps() throws Exception {
 		reader.eat(Sym.DEBUTDOC);
 		List<Arbre> tmp = nonterm_SuiteElem();
@@ -69,7 +83,7 @@ class Parser {
 				reader.eat(Sym.FINACCOLADE);
 			} else if (reader.check(Sym.DEBUTENUM)){
 				ans = nonterm_Enum();
-			//} else if (reader.check(s))
+			}
 		}
 		return ans;
 	}

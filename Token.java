@@ -15,9 +15,9 @@ class Token {
 	}
 }   
 
-class ValuedToken extends Token {
+class WordToken extends Token {
 	private String value;
-	public ValuedToken(Sym s,String v) {
+	public WordToken(Sym s, String v) {
 		super(s);
 		value=v;
 	}
@@ -30,4 +30,32 @@ class ValuedToken extends Token {
 	}
 }
 
+class IdToken extends Token {
+	private int value;
+	public WordToken(Sym s, int v) {
+		super(s);
+		value=v;
+	}
+	public int getValue(){
+		return value;
+	}
 
+	public String toString(){
+		return "Symbol : "+symbol+" | Value : "+value;
+	}
+}
+
+class ColorToken extends Token {
+	private String value;
+	public WordToken(Sym s, String v) {
+		super(s);
+		value=v;
+	}
+	public String getValue(){
+		return value;
+	}
+
+	public String toString(){
+		return "Symbol : "+symbol+" | Value : "+value;
+	}
+}

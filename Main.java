@@ -11,7 +11,7 @@ class Main {
 		File input = new File(args[0]);
 		Reader reader = new FileReader(input);
 		Lexer lexer = new Lexer(reader);
-		LookAhead1 look = new LookAhead1(lexer);
+		LookAhead look = new LookAhead(lexer);
 
 		Parser parser = new Parser(look);
 		try {
