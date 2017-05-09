@@ -26,6 +26,17 @@ class LookAhead  {
 
 		current=lexer.yylex();
 	}
+	
+	public String getValue() throws Exception {
+		// it gives the value of the ValuedToken, or it rises an exception if not ValuedToken
+		if (current instanceof WordToken) {
+			WordToken t = (WordToken) current; 
+			return t.getValue();
+		} else {
+			throw new Exception("\n"+ lexer.getPosition()+": LookAhead error: get value from a non-valued token");
+		}
+
+	}
 
 
 }
