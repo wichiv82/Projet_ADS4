@@ -26,13 +26,18 @@ class Parser {
 	}
 	
 	public Arbre nonterm_Declaration() throws Exception {
+		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
 		reader.eat(Sym.SET);
 		reader.eat(Sym.DEBUTACCOLADE);
-		reader.eat(Sym.SET);
-		List<Arbre> tmp = nonterm_SuiteElem();
-		reader.eat(Sym.FINDOC);
-		reader.eat(Sym.EOF);
-		return new Arbre("<!DOCTYPE html>\n<html>\n<body>\n","\n</body>\n</html>",tmp);
+		reader.eat(Sym.ID);
+		reader.eat(Sym.FINACCOLADE);
+		reader.eat(Sym.DEBUTACCOLADE);
+		reader.eat(Sym.CONSTANTE_COULEUR);
+		reader.eat(Sym.FINACCOLADE);
+		if (!epsilon()) {
+			tmp.addAll(nonterm_Declaration());
+		}
+		return new Arbre("","",tmp);
 	}
 	
 	public Arbre nonterm_Corps() throws Exception {
@@ -54,7 +59,7 @@ class Parser {
 
 	private List<Arbre> nonterm_SuiteElem() throws Exception {
 		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
-		// Recontrer un Token de balise fermante revient à trouver un epsilon dans ce cas
+		// Recontrer un Token de balise fermante revient à trouver un epsilon dres ce cas
 		if (!epsilon()) {
 			tmp.add(nonterm_Elem());
 			tmp.addAll(nonterm_SuiteElem());
@@ -63,36 +68,42 @@ class Parser {
 	}
 
 	private Arbre nonterm_Elem() throws Exception {
-		Arbre ans = new Arbre("");
+		Arbre res = new Arbre("");
 		if (!reader.check(Sym.FINACCOLADE)) {
 			if (reader.check(Sym.MOT)) {
-				ans = new Arbre(reader.getValue());
+				res = new Arbre(reader.getValue());
 				reader.eat(Sym.MOT);
 			} else if (reader.check(Sym.LINEBREAK)) {
 				reader.eat(Sym.LINEBREAK);
-				ans = new Arbre("\n<br>\n");
+				res = new Arbre("\n<br>\n");
 			} else if (reader.check(Sym.BF)) {
 				reader.eat(Sym.BF);
 				reader.eat(Sym.DEBUTACCOLADE);
-				ans = new Arbre("<b>","</b>",nonterm_SuiteElem());
+				res = new Arbre("<b>","</b>",nonterm_SuiteElem());
 				reader.eat(Sym.FINACCOLADE);
 			} else if (reader.check(Sym.IT)) {
 				reader.eat(Sym.IT);
 				reader.eat(Sym.DEBUTACCOLADE);
-				ans = new Arbre("<i>","</i>",nonterm_SuiteElem());
+				res = new Arbre("<i>","</i>",nonterm_SuiteElem());
 				reader.eat(Sym.FINACCOLADE);
 			} else if (reader.check(Sym.DEBUTENUM)){
-				ans = nonterm_Enum();
+				res = nonterm_Enum();
+			}  else if (reader.check(Sym.COULEUR)){
+				reader.eat(Sym.COULEUR);
+				reader.eat(Sym.DEBUTACCOLADE);
+				res = nonterm_ValCol();
+				reader.eat(Sym.FINACCOLADE);
+				res = new Arbre("", nonterm_SuiteElem());
 			}
 		}
-		return ans;
+		return res;
 	}
 	
 	private Arbre nonterm_Enum() throws Exception {
 		reader.eat(Sym.DEBUTENUM);
-		Arbre ans = new Arbre("\n<ol>","\n</ol>\n", nonterm_SuiteItems());
+		Arbre res = new Arbre("\n<ol>","\n</ol>\n", nonterm_SuiteItems());
 		reader.eat(Sym.FINENUM);
-		return ans;
+		return res;
 	}
 	
 	private List<Arbre> nonterm_SuiteItems() throws Exception {

@@ -12,7 +12,7 @@ public enum Sym {
 	ITEM,
 	SET,
 	COULEUR,
+	CONSTANTE_COULEUR,
 	ID,
-	VAL_COL,
 	EOF;
 }

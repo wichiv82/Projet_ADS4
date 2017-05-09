@@ -32,7 +32,7 @@ class WordToken extends Token {
 
 class IdToken extends Token {
 	private int value;
-	public WordToken(Sym s, int v) {
+	public IdToken(Sym s, int v) {
 		super(s);
 		value=v;
 	}
@@ -47,7 +47,7 @@ class IdToken extends Token {
 
 class ColorToken extends Token {
 	private String value;
-	public WordToken(Sym s, String v) {
+	public ColorToken(Sym s, String v) {
 		super(s);
 		value=v;
 	}
