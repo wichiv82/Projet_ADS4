@@ -5,6 +5,8 @@
 \couleur{2} Un texte en bleu
 \couleur{1} Un autre texte en rouge
 \couleur{00FF00} Un texte en vert sans id
+000
+000000
 Le systeme \bf{RGB} utilise en informatique distingue 3 couleurs \it{primaires}:
 \beginenum
 \item \it{\bf{rouge}} code en hexadecimal \bf{FF0000};
