@@ -91,8 +91,9 @@ class Parser {
 			}  else if (reader.check(Sym.COULEUR)){
 				reader.eat(Sym.COULEUR);
 				reader.eat(Sym.DEBUTACCOLADE);
-				res = nonterm_ValCol();
-				reader.eat(Sym.FINACCOLADE);
+				if (nonterm_ValCol()){
+					reader.eat(Sym.FINACCOLADE);
+				}
 				res = new Arbre("", nonterm_SuiteElem());
 			}
 		}
@@ -120,4 +121,9 @@ class Parser {
 		reader.eat(Sym.ITEM);
 		return new Arbre("\n<li>","</li>", nonterm_SuiteElem());
 	}
+	
+	private boolean nonterm_ValCol() throws Exception {
+		return (reader.eat(Sym.ID) || reader.eat(Sym.CONSTANTE_COULEUR));
+	}
+	
 }
