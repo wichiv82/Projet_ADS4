@@ -639,7 +639,7 @@ public class Lexer {
             }
           case 17: break;
           case 3: 
-            { return new ValuedToken(Sym.MOT, yytext());
+            { return new ValuedToken(Sym.MOT, yytext();
             }
           case 18: break;
           case 4: 

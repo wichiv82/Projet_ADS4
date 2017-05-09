@@ -10,5 +10,7 @@ public enum Sym {
 	DEBUTENUM,
 	FINENUM,
 	ITEM,
-	EOF;  //token representinting the end of file
+	SET,
+	COULEUR,
+	EOF;
 }

@@ -67,12 +67,19 @@ mot = [a-zA-Z0-9:;,.?!]+
 "\\item" {return new Token(Sym.ITEM);}
 
 
-{mot}		{return new Token(Sym.MOT);}
+//Partie couleur
+"\\set" {return new Token(Sym.SET);}
+
+"\\couleur" {return new Token(Sym.COULEUR);}
+
+
+{mot}		{return new ValuedToken(Sym.MOT, yytext());}
 
 {blank}		{}
  
  
-[^]		{throw new Exception("Lexer error at line "+ yyline + "column " + yycolumn);}
+[^]		{throw new Exception("Erreur du Lexeur ligne "+ yyline + "column " + yycolumn);}
 
 
 <<EOF>>    	{return new Token(Sym.EOF);}  
+
