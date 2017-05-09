@@ -22,9 +22,9 @@ class Parser {
 	}
 
 	public Arbre nonterm_Corps() throws Exception {
-		reader.eat(Sym.PROLOGUE);
+		reader.eat(Sym.DEBUTDOC);
 		List<Arbre> tmp = nonterm_SuiteElem();
-		reader.eat(Sym.EPILOGUE);
+		reader.eat(Sym.FINDOC);
 		reader.eat(Sym.EOF);
 		return new Arbre("<!DOCTYPE html>\n<html>\n<body>\n","\n</body>\n</html>",tmp);
 	}
@@ -34,8 +34,8 @@ class Parser {
 	 * @throws Exception
 	 */
 	private boolean epsilon() throws Exception{
-		return reader.check(Sym.EPILOGUE) || reader.check(Sym.ITEM) || reader.check(Sym.EENUM) ||
-				reader.check(Sym.RACCOLADE);
+		return reader.check(Sym.FINDOC) || reader.check(Sym.ITEM) || reader.check(Sym.FINENUM) ||
+				reader.check(Sym.FINACCOLADE);
 	}
 
 	private List<Arbre> nonterm_SuiteElem() throws Exception {
@@ -50,7 +50,7 @@ class Parser {
 
 	private Arbre nonterm_Elem() throws Exception {
 		Arbre ans = new Arbre("");
-		if (!reader.check(Sym.RACCOLADE)) {
+		if (!reader.check(Sym.FINACCOLADE)) {
 			if (reader.check(Sym.MOT)) {
 				ans = new Arbre(reader.getValue());
 				reader.eat(Sym.MOT);
@@ -59,32 +59,32 @@ class Parser {
 				ans = new Arbre("\n<br>\n");
 			} else if (reader.check(Sym.BF)) {
 				reader.eat(Sym.BF);
-				reader.eat(Sym.LACCOLADE);
+				reader.eat(Sym.DEBUTACCOLADE);
 				ans = new Arbre("<b>","</b>",nonterm_SuiteElem());
-				reader.eat(Sym.RACCOLADE);
+				reader.eat(Sym.FINACCOLADE);
 			} else if (reader.check(Sym.IT)) {
 				reader.eat(Sym.IT);
-				reader.eat(Sym.LACCOLADE);
+				reader.eat(Sym.DEBUTACCOLADE);
 				ans = new Arbre("<i>","</i>",nonterm_SuiteElem());
-				reader.eat(Sym.RACCOLADE);
-			} else if (reader.check(Sym.BENUM)){
+				reader.eat(Sym.FINACCOLADE);
+			} else if (reader.check(Sym.DEBUTENUM)){
 				ans = nonterm_Enum();
-			} else if (reader.check(s))
+			//} else if (reader.check(s))
 		}
 		return ans;
 	}
 	
 	private Arbre nonterm_Enum() throws Exception {
-		reader.eat(Sym.BENUM);
+		reader.eat(Sym.DEBUTENUM);
 		Arbre ans = new Arbre("\n<ol>","\n</ol>\n", nonterm_SuiteItems());
-		reader.eat(Sym.EENUM);
+		reader.eat(Sym.FINENUM);
 		return ans;
 	}
 	
 	private List<Arbre> nonterm_SuiteItems() throws Exception {
 		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
 		// On continue à chercher des items tant qu'on a pas atteint la fin de l'enum
-		if (!reader.check(Sym.EENUM)) {
+		if (!reader.check(Sym.FINENUM)) {
 			tmp.add(nonterm_Item());
 			tmp.addAll(nonterm_SuiteItems());
 		}

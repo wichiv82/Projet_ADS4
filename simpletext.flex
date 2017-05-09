@@ -39,7 +39,7 @@ blank = [\n\r \t]
 
 string = \"[^\"]*\"
 
-mot = [a-zA-Z0-9]+
+mot = [a-zA-Z0-9:;,.?!]+
 
 
 
