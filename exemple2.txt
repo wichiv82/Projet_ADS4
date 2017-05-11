@@ -1,10 +1,14 @@
-\set{1}{FF0000}
-\set{2}{0000FF}
+\set{#1}{¤FF0000}
+\set{#2000}{¤0000FF}
 \begindoc
-\couleur{1} Un texte en rouge
-\couleur{2} Un texte en bleu
-\couleur{1} Un autre texte en rouge
-\couleur{00FF00} Un texte en vert sans id
+\couleur{#1} Un texte en rouge
+\linebreak
+\couleur{#2000} Un texte en bleu
+\linebreak
+\couleur{#1} Un autre texte en rouge
+\linebreak
+\couleur{¤00FF00} Un texte en vert sans id
+\linebreak
 000
 000000
 Le systeme \bf{RGB} utilise en informatique distingue 3 couleurs \it{primaires}:

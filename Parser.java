@@ -33,7 +33,7 @@ class Parser {
 			List<Arbre> a1 = nonterm_Declaration();
 			Arbre a2 = nonterm_Corps();
 			a1.add(a2);
-			res = new Arbre("", a1);
+			res = new Arbre("",a1);
 		}
 		return res;
 	}
@@ -42,10 +42,10 @@ class Parser {
 		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
 		reader.eat(Sym.SET);
 		reader.eat(Sym.DEBUTACCOLADE);
-		reader.eat(Sym.MOT);
+		reader.eat(Sym.ID);
 		reader.eat(Sym.FINACCOLADE);
 		reader.eat(Sym.DEBUTACCOLADE);
-		reader.eat(Sym.MOT);
+		reader.eat(Sym.CONSTANTE_COULEUR);
 		reader.eat(Sym.FINACCOLADE);
 		if (reader.check(Sym.SET)) {
 			tmp.addAll(nonterm_Declaration());
@@ -106,8 +106,8 @@ class Parser {
 				reader.eat(Sym.DEBUTACCOLADE);
 				Arbre tmp = new Arbre("");
 				tmp = nonterm_ValCol();
-				reader.eat(Sym.FINACCOLADE);
 				res = new Arbre(tmp.toString(), nonterm_SuiteElem());
+				reader.eat(Sym.FINACCOLADE);
 			}
 		}
 		return res;
