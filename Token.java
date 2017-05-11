@@ -31,12 +31,12 @@ class WordToken extends Token {
 }
 
 class IdToken extends Token {
-	private int value;
-	public IdToken(Sym s, int v) {
+	private String value;
+	public IdToken(Sym s, String v) {
 		super(s);
 		value=v;
 	}
-	public int getValue(){
+	public String getValue(){
 		return value;
 	}
 

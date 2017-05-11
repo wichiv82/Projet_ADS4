@@ -38,10 +38,8 @@
 blank = [\n\r \t] 
 
 string = \"[^\"]*\"
-
 mot = [a-zA-Z0-9:;,.?!]+
-ID = [0-9]+
-CONSTANTE_COULEUR = [0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F]
+CONSTANTE_COULEUR = [0-9A-F]+6
    
 
 %%
@@ -80,9 +78,6 @@ CONSTANTE_COULEUR = [0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F]
 
 "\\couleur" 		{return new Token(Sym.COULEUR);}
 
-{ID}            	{return new IdToken(Sym.ID, yytext());}
-
 {CONSTANTE_COULEUR}     {return new ColorToken(Sym.CONSTANTE_COULEUR, yytext());}
-
 <<EOF>>    	{return new Token(Sym.EOF);}  
 

@@ -30,9 +30,10 @@ class Parser {
 		if (reader.check(Sym.DEBUTDOC))
 			res = nonterm_Corps();
 		else if (reader.check(Sym.SET)){
-			ArrayList<Arbre> a1 = nonterm_Declaration();
+			List<Arbre> a1 = nonterm_Declaration();
 			Arbre a2 = nonterm_Corps();
-			res = new Arbre("", a1.add(a2));
+			a1.add(a2);
+			res = new Arbre("", a1);
 		}
 		return res;
 	}
@@ -41,12 +42,12 @@ class Parser {
 		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
 		reader.eat(Sym.SET);
 		reader.eat(Sym.DEBUTACCOLADE);
-		reader.eat(Sym.ID);
+		reader.eat(Sym.MOT);
 		reader.eat(Sym.FINACCOLADE);
 		reader.eat(Sym.DEBUTACCOLADE);
-		reader.eat(Sym.CONSTANTE_COULEUR);
+		reader.eat(Sym.MOT);
 		reader.eat(Sym.FINACCOLADE);
-		if (!epsilon()) {
+		if (reader.check(Sym.SET)) {
 			tmp.addAll(nonterm_Declaration());
 		}
 		return tmp;
