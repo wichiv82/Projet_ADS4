@@ -15,7 +15,7 @@ class Main {
 
 		Parser parser = new Parser(look);
 		try {
-			Arbre a  = parser.nonterm_Corps();
+			Arbre a  = parser.nonterm_Document();
 			System.out.println("The file is correct");
 			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("output.html")));
 			out.print(a.toString());
