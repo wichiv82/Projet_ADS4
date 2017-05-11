@@ -25,6 +25,18 @@ class Parser {
 		this.reader=r;
 	}
 	
+	public Arbre nonterm_Document() throws Exception{
+		Arbre res = new Arbre("");
+		if (reader.check(Sym.DEBUTDOC))
+			res = nonterm_Corps();
+		else if (reader.check(Sym.SET)){
+			ArrayList<Arbre> a1 = nonterm_Declaration();
+			Arbre a2 = nonterm_Corps();
+			res = new Arbre("", a1.add(a2));
+		}
+		return res;
+	}
+	
 	public List<Arbre> nonterm_Declaration() throws Exception {
 		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
 		reader.eat(Sym.SET);
@@ -92,7 +104,7 @@ class Parser {
 				reader.eat(Sym.COULEUR);
 				reader.eat(Sym.DEBUTACCOLADE);
 				Arbre tmp = new Arbre("");
-				tmp = nonterm_Valcol();
+				tmp = nonterm_ValCol();
 				reader.eat(Sym.FINACCOLADE);
 				res = new Arbre(tmp.toString(), nonterm_SuiteElem());
 			}
