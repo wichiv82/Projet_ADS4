@@ -25,7 +25,7 @@ class Parser {
 		this.reader=r;
 	}
 	
-	public Arbre nonterm_Declaration() throws Exception {
+	public List<Arbre> nonterm_Declaration() throws Exception {
 		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
 		reader.eat(Sym.SET);
 		reader.eat(Sym.DEBUTACCOLADE);
@@ -37,7 +37,7 @@ class Parser {
 		if (!epsilon()) {
 			tmp.addAll(nonterm_Declaration());
 		}
-		return new Arbre("","",tmp);
+		return tmp;
 	}
 	
 	public Arbre nonterm_Corps() throws Exception {
@@ -91,14 +91,15 @@ class Parser {
 			}  else if (reader.check(Sym.COULEUR)){
 				reader.eat(Sym.COULEUR);
 				reader.eat(Sym.DEBUTACCOLADE);
-				if (nonterm_ValCol()){
-					reader.eat(Sym.FINACCOLADE);
-				}
-				res = new Arbre("", nonterm_SuiteElem());
+				Arbre tmp = new Arbre("");
+				tmp = nonterm_Valcol();
+				reader.eat(Sym.FINACCOLADE);
+				res = new Arbre(tmp.toString(), nonterm_SuiteElem());
 			}
 		}
 		return res;
 	}
+	
 	
 	private Arbre nonterm_Enum() throws Exception {
 		reader.eat(Sym.DEBUTENUM);
@@ -122,8 +123,16 @@ class Parser {
 		return new Arbre("\n<li>","</li>", nonterm_SuiteElem());
 	}
 	
-	private boolean nonterm_ValCol() throws Exception {
-		return (reader.eat(Sym.ID) || reader.eat(Sym.CONSTANTE_COULEUR));
+	private Arbre nonterm_ValCol() throws Exception {
+		Arbre res = new Arbre("");
+		if (reader.check(Sym.ID)){
+			res = new Arbre(reader.getValue());
+			reader.eat(Sym.ID);
+		}else if (reader.check(Sym.CONSTANTE_COULEUR)){
+			res = new Arbre(reader.getValue());
+			reader.eat(Sym.CONSTANTE_COULEUR);
+		}
+		return res ;
 	}
 	
 }
