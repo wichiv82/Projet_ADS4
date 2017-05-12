@@ -33,6 +33,12 @@ class LookAhead  {
 		if (current instanceof WordToken) {
 			WordToken t = (WordToken) current; 
 			return t.getValue();
+		}else if (current instanceof IdToken){
+			IdToken t = (IdToken) current; 
+			return t.getValue();
+		}else if (current instanceof ColorToken){
+			ColorToken t = (ColorToken) current; 
+			return t.getValue();
 		} else {
 			throw new Exception("\n"+ lexer.getPosition()+": LookAhead error: get value from a non-valued token");
 		}

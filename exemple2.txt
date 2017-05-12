@@ -1,13 +1,13 @@
-\set{#1}{¤FF0000}
-\set{#2000}{¤0000FF}
+\set{¤1}{#FF0000}
+\set{¤2000}{#00FF00}
 \begindoc
-\couleur{#1} Un texte en rouge
+\couleur{¤1} {Un texte en rouge}
 \linebreak
-\couleur{#2000} Un texte en bleu
+\couleur{¤2000} {Un texte en vert}
 \linebreak
-\couleur{#1} Un autre texte en rouge
+\couleur{¤1} {Un autre texte en rouge}
 \linebreak
-\couleur{¤00FF00} Un texte en vert sans id
+\couleur{#0000FF} {Un texte en bleu sans id} avec un morceau en noir
 \linebreak
 000
 000000

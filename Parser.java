@@ -104,9 +104,17 @@ class Parser {
 			}  else if (reader.check(Sym.COULEUR)){
 				reader.eat(Sym.COULEUR);
 				reader.eat(Sym.DEBUTACCOLADE);
-				Arbre tmp = new Arbre("");
-				tmp = nonterm_ValCol();
-				res = new Arbre(tmp.toString(), nonterm_SuiteElem());
+				String c ="";
+				if (reader.check(Sym.ID)){
+					c = reader.getValue();
+					reader.eat(Sym.ID);
+				}else if (reader.check(Sym.CONSTANTE_COULEUR)){
+					c = reader.getValue();
+					reader.eat(Sym.CONSTANTE_COULEUR);
+				}
+				reader.eat(Sym.FINACCOLADE);
+				reader.eat(Sym.DEBUTACCOLADE);
+				res = new Arbre("<font color=\""+c+"\">","</font>",nonterm_SuiteElem());
 				reader.eat(Sym.FINACCOLADE);
 			}
 		}
@@ -134,18 +142,6 @@ class Parser {
 	private Arbre nonterm_Item() throws Exception {
 		reader.eat(Sym.ITEM);
 		return new Arbre("\n<li>","</li>", nonterm_SuiteElem());
-	}
-	
-	private Arbre nonterm_ValCol() throws Exception {
-		Arbre res = new Arbre("");
-		if (reader.check(Sym.ID)){
-			res = new Arbre(reader.getValue());
-			reader.eat(Sym.ID);
-		}else if (reader.check(Sym.CONSTANTE_COULEUR)){
-			res = new Arbre(reader.getValue());
-			reader.eat(Sym.CONSTANTE_COULEUR);
-		}
-		return res ;
 	}
 	
 }
