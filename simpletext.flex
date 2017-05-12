@@ -39,8 +39,7 @@ blank = [\n\r \t]
 
 string = \"[^\"]*\"
 mot = [a-zA-Z0-9:;,.?!]+
-ID = ¤[0-9]+
-CONSTANTE_COULEUR = \#[A-F0-9][A-F0-9][A-F0-9][A-F0-9][A-F0-9][A-F0-9]
+CONSTANTE_COULEUR = #[A-F0-9]{6}
    
 
 %%
@@ -73,7 +72,7 @@ CONSTANTE_COULEUR = \#[A-F0-9][A-F0-9][A-F0-9][A-F0-9][A-F0-9][A-F0-9]
 {blank}			{}
  
  
-[^]			{throw new Exception("Erreur du Lexeur ligne "+ yyline + "column " + yycolumn);}
+[^]			{throw new Exception("Erreur du Lexeur ligne "+ yyline + " column " + yycolumn);}
 
 
 //Partie couleur
@@ -81,7 +80,7 @@ CONSTANTE_COULEUR = \#[A-F0-9][A-F0-9][A-F0-9][A-F0-9][A-F0-9][A-F0-9]
 
 "\\couleur" 		{return new Token(Sym.COULEUR);}
 
-{ID}     		{return new IdToken(Sym.ID, yytext());}
+"\\id"    		{return new Token(Sym.ID);}
 
 <<EOF>>    	{return new Token(Sym.EOF);}  
 

@@ -33,12 +33,11 @@ public class Lexer {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\2\1\2\0\1\1\22\0\1\1\1\2\1\0\1\5\10\0"+
-    "\1\2\1\0\1\2\1\0\12\4\2\2\3\0\1\2\1\0\6\6"+
-    "\24\2\1\0\1\7\4\0\1\22\1\10\1\17\1\15\1\11\1\24"+
-    "\1\12\1\2\1\13\1\2\1\23\1\20\1\31\1\14\1\16\2\2"+
-    "\1\21\1\32\1\25\1\30\5\2\1\26\1\0\1\27\46\0\1\3"+
-    "\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uff6b\0";
+    "\11\0\2\1\2\0\1\1\22\0\1\1\1\2\1\0\1\3\10\0"+
+    "\1\2\1\0\1\2\1\0\12\4\2\2\3\0\1\2\1\0\6\4"+
+    "\24\2\1\0\1\5\4\0\1\20\1\6\1\15\1\13\1\7\1\22"+
+    "\1\10\1\2\1\11\1\2\1\21\1\16\1\27\1\12\1\14\2\2"+
+    "\1\17\1\30\1\23\1\26\5\2\1\24\1\0\1\25\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uff92\0";
 
   /** 
    * Translates characters to character classes
@@ -51,13 +50,13 @@ public class Lexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\3\1\1\4\1\5\1\6"+
-    "\11\0\1\7\1\0\1\10\11\0\1\11\4\0\1\12"+
+    "\1\0\1\1\1\2\1\3\2\1\1\4\1\5\11\0"+
+    "\1\6\1\0\1\7\1\10\11\0\1\11\4\0\1\12"+
     "\10\0\1\13\3\0\1\14\4\0\1\15\1\16\2\0"+
     "\1\17\1\0\1\20\1\21";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[62];
+    int [] result = new int[61];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -82,17 +81,17 @@ public class Lexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\33\0\33\0\66\0\121\0\154\0\207\0\33"+
-    "\0\33\0\121\0\242\0\275\0\330\0\363\0\u010e\0\u0129"+
-    "\0\u0144\0\u015f\0\u017a\0\33\0\u0195\0\u01b0\0\u01cb\0\u01e6"+
-    "\0\u0201\0\u021c\0\u0237\0\u0252\0\u026d\0\u0288\0\u02a3\0\33"+
-    "\0\u02be\0\u02d9\0\u02f4\0\u030f\0\33\0\u032a\0\u0345\0\u0360"+
-    "\0\u037b\0\u0396\0\u03b1\0\u03cc\0\u03e7\0\33\0\u0402\0\u041d"+
-    "\0\u0438\0\33\0\u0453\0\u046e\0\u0489\0\u04a4\0\33\0\33"+
-    "\0\u04bf\0\u04da\0\33\0\u04f5\0\33\0\33";
+    "\0\0\0\31\0\31\0\62\0\113\0\144\0\31\0\31"+
+    "\0\175\0\226\0\257\0\310\0\341\0\372\0\u0113\0\u012c"+
+    "\0\u0145\0\31\0\u015e\0\31\0\u0177\0\u0190\0\u01a9\0\u01c2"+
+    "\0\u01db\0\u01f4\0\u020d\0\u0226\0\u023f\0\u0258\0\31\0\u0271"+
+    "\0\u028a\0\u02a3\0\u02bc\0\31\0\u02d5\0\u02ee\0\u0307\0\u0320"+
+    "\0\u0339\0\u0352\0\u036b\0\u0384\0\31\0\u039d\0\u03b6\0\u03cf"+
+    "\0\31\0\u03e8\0\u0401\0\u041a\0\u0433\0\31\0\31\0\u044c"+
+    "\0\u0465\0\31\0\u047e\0\31\0\31";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[62];
+    int [] result = new int[61];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -115,27 +114,25 @@ public class Lexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\1\4\1\5\1\4\1\6\1\4\1\7"+
-    "\16\4\1\10\1\11\3\4\35\0\1\4\1\0\1\4"+
-    "\1\0\1\4\1\0\16\4\2\0\3\4\4\0\1\12"+
-    "\32\0\1\13\1\0\1\13\34\0\1\14\1\15\1\0"+
-    "\1\16\3\0\1\17\1\20\11\0\1\21\4\0\1\22"+
-    "\1\0\1\22\35\0\1\23\12\0\1\24\22\0\1\25"+
-    "\43\0\1\26\23\0\1\27\27\0\1\30\30\0\1\31"+
-    "\25\0\1\32\1\0\1\32\36\0\1\33\35\0\1\34"+
-    "\26\0\1\35\51\0\1\36\16\0\1\37\43\0\1\40"+
-    "\11\0\1\41\1\0\1\41\37\0\1\42\30\0\1\43"+
-    "\3\0\1\44\46\0\1\45\21\0\1\46\23\0\1\47"+
-    "\25\0\1\50\1\0\1\50\40\0\1\51\32\0\1\52"+
-    "\34\0\1\53\25\0\1\54\31\0\1\55\26\0\1\56"+
-    "\1\0\1\56\35\0\1\57\3\0\1\60\45\0\1\61"+
-    "\21\0\1\62\43\0\1\63\23\0\1\64\25\0\1\65"+
-    "\34\0\1\66\45\0\1\67\22\0\1\70\22\0\1\71"+
-    "\51\0\1\72\21\0\1\73\35\0\1\74\41\0\1\75"+
-    "\24\0\1\76\7\0";
+    "\1\2\1\3\1\4\1\5\1\4\1\6\16\4\1\7"+
+    "\1\10\3\4\33\0\1\4\1\0\1\4\1\0\16\4"+
+    "\2\0\3\4\4\0\1\11\32\0\1\12\1\13\1\0"+
+    "\1\14\3\0\1\15\1\16\11\0\1\17\4\0\1\20"+
+    "\33\0\1\21\12\0\1\22\20\0\1\23\31\0\1\24"+
+    "\7\0\1\25\21\0\1\26\25\0\1\27\26\0\1\30"+
+    "\25\0\1\31\34\0\1\32\33\0\1\33\24\0\1\34"+
+    "\47\0\1\35\14\0\1\36\41\0\1\37\11\0\1\40"+
+    "\35\0\1\41\26\0\1\42\3\0\1\43\44\0\1\44"+
+    "\17\0\1\45\21\0\1\46\25\0\1\47\36\0\1\50"+
+    "\30\0\1\51\32\0\1\52\23\0\1\53\27\0\1\54"+
+    "\26\0\1\55\33\0\1\56\3\0\1\57\43\0\1\60"+
+    "\17\0\1\61\41\0\1\62\21\0\1\63\23\0\1\64"+
+    "\32\0\1\65\43\0\1\66\20\0\1\67\20\0\1\70"+
+    "\47\0\1\71\17\0\1\72\33\0\1\73\37\0\1\74"+
+    "\22\0\1\75\7\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[1296];
+    int [] result = new int[1175];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -173,12 +170,12 @@ public class Lexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\2\11\4\1\2\11\1\1\11\0\1\11\1\0"+
+    "\1\0\2\11\3\1\2\11\11\0\1\11\1\0\1\11"+
     "\1\1\11\0\1\11\4\0\1\11\10\0\1\11\3\0"+
     "\1\11\4\0\2\11\2\0\1\11\1\0\2\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[62];
+    int [] result = new int[61];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -284,7 +281,7 @@ public class Lexer {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 134) {
+    while (i < 130) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
@@ -637,7 +634,7 @@ public class Lexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { throw new Exception("Erreur du Lexeur ligne "+ yyline + "column " + yycolumn);
+            { throw new Exception("Erreur du Lexeur ligne "+ yyline + " column " + yycolumn);
             }
           case 18: break;
           case 2: 
@@ -657,11 +654,11 @@ public class Lexer {
             }
           case 22: break;
           case 6: 
-            { return new IdToken(Sym.ID, yytext());
+            { return new Token(Sym.BF);
             }
           case 23: break;
           case 7: 
-            { return new Token(Sym.BF);
+            { return new Token(Sym.ID);
             }
           case 24: break;
           case 8: 

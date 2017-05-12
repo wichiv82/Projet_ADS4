@@ -1,11 +1,11 @@
-\set{¤1}{#FF0000}
-\set{¤2000}{#00FF00}
+\set{\idp}{#FF0000}
+\set{\ida}{#00FF00}
 \begindoc
-\couleur{¤1} {Un texte en rouge}
+\couleur{\idp} {Un texte en rouge}
 \linebreak
-\couleur{¤2000} {Un texte en vert}
+\couleur{\ida} {Un texte en vert}
 \linebreak
-\couleur{¤1} {Un autre texte en rouge}
+\couleur{\idp} {Un autre texte en rouge}
 \linebreak
 \couleur{#0000FF} {Un texte en bleu sans id} avec un morceau en noir
 \linebreak

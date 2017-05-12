@@ -30,35 +30,46 @@ class Parser {
 		if (reader.check(Sym.DEBUTDOC))
 			res = nonterm_Corps();
 		else if (reader.check(Sym.SET)){
-			List<Arbre> a1 = nonterm_Declaration();
+			List<Arbre> a0 = nonterm_Declaration();
+			System.out.println(a0.size());
+			Arbre a1 = new Arbre("<head><meta charset=\"utf-8\" /> \n<style>","\n</style></head>", a0);
 			Arbre a2 = nonterm_Corps();
-			a1.add(a2);
-			res = new Arbre("",a1);
+			ArrayList<Arbre> tmp = new ArrayList<Arbre>();
+			tmp.add(a1);
+			tmp.add(a2);
+			res = new Arbre("<!DOCTYPE html>\n<html>\n","\n</html>",tmp);
 		}
 		return res;
 	}
 	
+	
 	public List<Arbre> nonterm_Declaration() throws Exception {
 		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
+		if (!reader.check(Sym.SET))
+			return tmp;
 		reader.eat(Sym.SET);
 		reader.eat(Sym.DEBUTACCOLADE);
 		reader.eat(Sym.ID);
+		String a = reader.getValue();
+		reader.eat(Sym.MOT);
 		reader.eat(Sym.FINACCOLADE);
 		reader.eat(Sym.DEBUTACCOLADE);
+		String b = reader.getValue();
 		reader.eat(Sym.CONSTANTE_COULEUR);
 		reader.eat(Sym.FINACCOLADE);
-		if (reader.check(Sym.SET)) {
-			tmp.addAll(nonterm_Declaration());
-		}
+		tmp.add(new Arbre(a+"{ \ncolor: "+b+"; \n}\n",nonterm_Declaration()));
+		System.out.println("++++++++++++++++++++++++-------------------");
+		
 		return tmp;
 	}
+	
 	
 	public Arbre nonterm_Corps() throws Exception {
 		reader.eat(Sym.DEBUTDOC);
 		List<Arbre> tmp = nonterm_SuiteElem();
 		reader.eat(Sym.FINDOC);
 		reader.eat(Sym.EOF);
-		return new Arbre("<!DOCTYPE html>\n<html>\n<body>\n","\n</body>\n</html>",tmp);
+		return new Arbre("<body>\n","\n</body>",tmp);
 	}
 	
 	/**
@@ -106,16 +117,21 @@ class Parser {
 				reader.eat(Sym.DEBUTACCOLADE);
 				String c ="";
 				if (reader.check(Sym.ID)){
-					c = reader.getValue();
 					reader.eat(Sym.ID);
+					c = reader.getValue();
+					reader.eat(Sym.MOT);
+					reader.eat(Sym.FINACCOLADE);
+					reader.eat(Sym.DEBUTACCOLADE);
+					res = new Arbre("<"+c+">","</"+c+">",nonterm_SuiteElem());
+					reader.eat(Sym.FINACCOLADE);
 				}else if (reader.check(Sym.CONSTANTE_COULEUR)){
 					c = reader.getValue();
 					reader.eat(Sym.CONSTANTE_COULEUR);
+					reader.eat(Sym.FINACCOLADE);
+					reader.eat(Sym.DEBUTACCOLADE);
+					res = new Arbre("<font color=\""+c+"\">","</font>",nonterm_SuiteElem());
+					reader.eat(Sym.FINACCOLADE);
 				}
-				reader.eat(Sym.FINACCOLADE);
-				reader.eat(Sym.DEBUTACCOLADE);
-				res = new Arbre("<font color=\""+c+"\">","</font>",nonterm_SuiteElem());
-				reader.eat(Sym.FINACCOLADE);
 			}
 		}
 		return res;

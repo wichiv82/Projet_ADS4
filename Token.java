@@ -30,20 +30,7 @@ class WordToken extends Token {
 	}
 }
 
-class IdToken extends Token {
-	private String value;
-	public IdToken(Sym s, String v) {
-		super(s);
-		value=v;
-	}
-	public String getValue(){
-		return value;
-	}
 
-	public String toString(){
-		return "Symbol : "+symbol+" | Value : "+value;
-	}
-}
 
 class ColorToken extends Token {
 	private String value;
