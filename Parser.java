@@ -145,7 +145,7 @@ class Parser {
 				reader.eat(Sym.FINACCOLADE);
 			} else if (reader.check(Sym.DEBUTENUM)){
 				res = nonterm_Enum();
-			}  else if (reader.check(Sym.COULEUR)){
+			} else if (reader.check(Sym.COULEUR)){
 				reader.eat(Sym.COULEUR);
 				reader.eat(Sym.DEBUTACCOLADE);
 				String c ="";
@@ -157,7 +157,7 @@ class Parser {
 					reader.eat(Sym.DEBUTACCOLADE);
 					res = new Arbre("<"+c+">","</"+c+">",nonterm_SuiteElem());
 					reader.eat(Sym.FINACCOLADE);
-				}else if (reader.check(Sym.CONSTANTE_COULEUR)){
+				} else if (reader.check(Sym.CONSTANTE_COULEUR)){
 					c = reader.getValue();
 					reader.eat(Sym.CONSTANTE_COULEUR);
 					reader.eat(Sym.FINACCOLADE);
@@ -165,6 +165,10 @@ class Parser {
 					res = new Arbre("<font color=\""+c+"\">","</font>",nonterm_SuiteElem());
 					reader.eat(Sym.FINACCOLADE);
 				}
+			} else if (reader.check(Sym.RACCOURCI)) {
+				reader.eat(Sym.RACCOURCI);
+				String c = reader.getValue();
+				reader.eat(Sym.MOT);
 			}
 		}
 		return res;
