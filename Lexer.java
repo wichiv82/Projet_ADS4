@@ -642,7 +642,7 @@ public class Lexer {
             }
           case 19: break;
           case 3: 
-            { return new WordToken(Sym.MOT, yytext());
+            { return new ValuedToken(Sym.MOT, yytext());
             }
           case 20: break;
           case 4: 
@@ -674,7 +674,7 @@ public class Lexer {
             }
           case 27: break;
           case 11: 
-            { return new ColorToken(Sym.CONSTANTE_COULEUR, yytext());
+            { return new ValuedToken(Sym.CONSTANTE_COULEUR, yytext());
             }
           case 28: break;
           case 12: 

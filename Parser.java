@@ -27,11 +27,11 @@ class Parser {
 	
 	public Arbre nonterm_Document() throws Exception{
 		Arbre res = new Arbre("");
-		if (reader.check(Sym.DEBUTDOC))
+		if (reader.check(Sym.DEBUTDOC)){
 			res = nonterm_Corps();
+		}
 		else if (reader.check(Sym.SET)){
 			List<Arbre> a0 = nonterm_Declaration();
-			System.out.println(a0.size());
 			Arbre a1 = new Arbre("<head><meta charset=\"utf-8\" /> \n<style>","\n</style></head>", a0);
 			Arbre a2 = nonterm_Corps();
 			ArrayList<Arbre> tmp = new ArrayList<Arbre>();
@@ -58,8 +58,6 @@ class Parser {
 		reader.eat(Sym.CONSTANTE_COULEUR);
 		reader.eat(Sym.FINACCOLADE);
 		tmp.add(new Arbre(a+"{ \ncolor: "+b+"; \n}\n",nonterm_Declaration()));
-		System.out.println("++++++++++++++++++++++++-------------------");
-		
 		return tmp;
 	}
 	

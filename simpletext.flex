@@ -37,7 +37,7 @@
 
 blank = [\n\r \t] 
 
-string = \"[^\"]*\"
+//string = \"[^\"]*\"
 mot = [a-zA-Z0-9:;,.?!]+
 CONSTANTE_COULEUR = #[A-F0-9]{6}
    
@@ -66,8 +66,8 @@ CONSTANTE_COULEUR = #[A-F0-9]{6}
 "\\item" 		{return new Token(Sym.ITEM);}
 
 
-{CONSTANTE_COULEUR}     {return new ColorToken(Sym.CONSTANTE_COULEUR, yytext());}
-{mot}			{return new WordToken(Sym.MOT, yytext());}
+{CONSTANTE_COULEUR}     {return new ValuedToken(Sym.CONSTANTE_COULEUR, yytext());}
+{mot}			{return new ValuedToken(Sym.MOT, yytext());}
 
 {blank}			{}
  
@@ -81,6 +81,7 @@ CONSTANTE_COULEUR = #[A-F0-9]{6}
 "\\couleur" 		{return new Token(Sym.COULEUR);}
 
 "\\id"    		{return new Token(Sym.ID);}
+
 
 <<EOF>>    	{return new Token(Sym.EOF);}  
 

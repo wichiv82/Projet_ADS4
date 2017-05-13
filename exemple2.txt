@@ -1,9 +1,9 @@
 \set{\idp}{#FF0000}
-\set{\ida}{#00FF00}
+\set{\idp2}{#00FF00}
 \begindoc
 \couleur{\idp} {Un texte en rouge}
 \linebreak
-\couleur{\ida} {Un texte en vert}
+\couleur{\idp2} {Un texte en vert}
 \linebreak
 \couleur{\idp} {Un autre texte en rouge}
 \linebreak

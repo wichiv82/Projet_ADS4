@@ -14,5 +14,6 @@ public enum Sym {
 	COULEUR,
 	CONSTANTE_COULEUR,
 	ID,
+	ABB,
 	EOF;
 }
