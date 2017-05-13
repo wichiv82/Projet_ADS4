@@ -82,6 +82,11 @@ CONSTANTE_COULEUR = #[A-F0-9]{6}
 
 "\\id"    		{return new Token(Sym.ID);}
 
+//Partie abbreviation
+"\\abb" 		{return new Token(Sym.ABB);}
+
+"\\raccourci"    	{return new Token(Sym.RACCOURCI);}
+
 
 <<EOF>>    	{return new Token(Sym.EOF);}  
 

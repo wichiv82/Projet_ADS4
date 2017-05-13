@@ -44,9 +44,17 @@ class Parser {
 	
 	
 	public List<Arbre> nonterm_Declaration() throws Exception {
+		ArrayList<Arbre> res = new ArrayList<Arbre>();
+		if (reader.check(Sym.SET)){
+			res = nonterm_Set();
+		} else if(reader.check(Sym.ABB)){
+			res = nonterm_Abb();
+		}
+		return res;
+	}
+	
+	public List<Arbre> nonterm_Set() throws Exception {
 		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
-		if (!reader.check(Sym.SET))
-			return tmp;
 		reader.eat(Sym.SET);
 		reader.eat(Sym.DEBUTACCOLADE);
 		reader.eat(Sym.ID);
@@ -61,6 +69,22 @@ class Parser {
 		return tmp;
 	}
 	
+	public List<Arbre> nonterm_Abb() throws Exception {
+		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
+		reader.eat(Sym.ABB);
+		reader.eat(Sym.DEBUTACCOLADE);
+		reader.eat(Sym.RACCOURCI);
+		String a = reader.getValue();
+		reader.eat(Sym.MOT);
+		reader.eat(Sym.FINACCOLADE);
+		reader.eat(Sym.DEBUTACCOLADE);
+		if (reader.check(Sym.BF))
+		String b = reader.getValue();
+		reader.eat(Sym.CONSTANTE_COULEUR);
+		reader.eat(Sym.FINACCOLADE);
+		tmp.add(new Arbre("",nonterm_Declaration()));
+		return tmp;
+	}
 	
 	public Arbre nonterm_Corps() throws Exception {
 		reader.eat(Sym.DEBUTDOC);
@@ -70,10 +94,7 @@ class Parser {
 		return new Arbre("<body>\n","\n</body>",tmp);
 	}
 	
-	/**
-	 * @return True si le reader voit un symbole correspond à une balise fermante
-	 * @throws Exception
-	 */
+	
 	private boolean epsilon() throws Exception{
 		return reader.check(Sym.FINDOC) || reader.check(Sym.ITEM) || reader.check(Sym.FINENUM) ||
 				reader.check(Sym.FINACCOLADE);
