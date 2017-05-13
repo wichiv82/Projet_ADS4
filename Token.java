@@ -1,17 +1,17 @@
 class Token {
-	protected Sym symbol;
+	protected Sym symbole;
 
 	public Token(Sym s) {
-		symbol=s;
+		symbole=s;
 	}
 
 	public Sym symbol() {
-		return symbol;
+		return symbole;
 	}
 
 
 	public String toString(){
-		return ""+this.symbol;
+		return ""+this.symbole;
 	}
 }   
 
@@ -26,7 +26,7 @@ class ValuedToken extends Token {
 	}
 
 	public String toString(){
-		return "Symbol : "+symbol+" | Value : "+value;
+		return "SYM "+symbole+" - Value : "+value;
 	}
 }
 
