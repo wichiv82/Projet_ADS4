@@ -20,6 +20,7 @@ class Parser {
 	 */
 	
 	LookAhead reader;
+	ArrayList<String[]> stockage = new ArrayList<String[3]>();
 
 	public Parser(LookAhead r) {
 		this.reader=r;
@@ -71,18 +72,31 @@ class Parser {
 	
 	public List<Arbre> nonterm_Abb() throws Exception {
 		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
+		String [] tab = new String [3];
 		reader.eat(Sym.ABB);
 		reader.eat(Sym.DEBUTACCOLADE);
 		reader.eat(Sym.RACCOURCI);
-		String a = reader.getValue();
+		tab[0] = reader.getValue();
 		reader.eat(Sym.MOT);
 		reader.eat(Sym.FINACCOLADE);
 		reader.eat(Sym.DEBUTACCOLADE);
 		if (reader.check(Sym.BF))
-		String b = reader.getValue();
-		reader.eat(Sym.CONSTANTE_COULEUR);
+			tab[2] = "bf";
+		else if (reader.check(Sym.IT))
+			tab[2] = "it";
+		else if (reader.check(Sym.DEBUTACCOLADE))
+			tab[2] = "rien";
+		reader.eat(Sym.DEBUTACCOLADE);
+		String a ="";
+		while (reader.check(Sym.MOT)){
+			a += reader.getValue()+ " ";
+			reader.eat(Sym.MOT);
+		}
+		tab[1] = a;
 		reader.eat(Sym.FINACCOLADE);
-		tmp.add(new Arbre("",nonterm_Declaration()));
+		reader.eat(Sym.FINACCOLADE);
+		stockage.add(tab);
+		tmp.add(new Arbre(nonterm_Declaration()));
 		return tmp;
 	}
 	
