@@ -4,7 +4,7 @@ class Main {
 
 	public static void main(String[] args) throws Exception {
 		if (args.length <1) {
-			System.out.println("java Main <namefile>");
+			System.out.println("Donnez un argument apres -java Main");
 			System.exit(1);
 		}
 		
@@ -12,18 +12,17 @@ class Main {
 		Reader reader = new FileReader(input);
 		Lexer lexer = new Lexer(reader);
 		LookAhead look = new LookAhead(lexer);
-
 		Parser parser = new Parser(look);
 		try {
 			Arbre a  = parser.nonterm_Document();
-			System.out.println("The file is correct");
-			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("output.html")));
+			System.out.println("Le fichier est correct");
+			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("AffichageResultat.html")));
 			out.print(a.toString());
 			out.close();
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (Exception e){
-			System.out.println("The file is not correct");
+			System.out.println("Le fichier n'est pas correct");
 			System.out.println(e);
 		}
 	}
