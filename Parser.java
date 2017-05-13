@@ -20,7 +20,7 @@ class Parser {
 	 */
 	
 	LookAhead reader;
-	ArrayList<String[]> stockage = new ArrayList<String[3]>();
+	ArrayList<String[]> stockage = new ArrayList<String[]>();
 
 	public Parser(LookAhead r) {
 		this.reader=r;
@@ -31,8 +31,8 @@ class Parser {
 		if (reader.check(Sym.DEBUTDOC)){
 			res = nonterm_Corps();
 		}
-		else if (reader.check(Sym.SET)){
-			List<Arbre> a0 = nonterm_Declaration();
+		else if (reader.check(Sym.SET) || reader.check(Sym.ABB)){
+			ArrayList<Arbre> a0 = nonterm_Declaration();
 			Arbre a1 = new Arbre("<head><meta charset=\"utf-8\" /> \n<style>","\n</style></head>", a0);
 			Arbre a2 = nonterm_Corps();
 			ArrayList<Arbre> tmp = new ArrayList<Arbre>();
@@ -44,7 +44,7 @@ class Parser {
 	}
 	
 	
-	public List<Arbre> nonterm_Declaration() throws Exception {
+	public ArrayList<Arbre> nonterm_Declaration() throws Exception {
 		ArrayList<Arbre> res = new ArrayList<Arbre>();
 		if (reader.check(Sym.SET)){
 			res = nonterm_Set();
@@ -54,7 +54,7 @@ class Parser {
 		return res;
 	}
 	
-	public List<Arbre> nonterm_Set() throws Exception {
+	public ArrayList<Arbre> nonterm_Set() throws Exception {
 		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
 		reader.eat(Sym.SET);
 		reader.eat(Sym.DEBUTACCOLADE);
@@ -70,7 +70,7 @@ class Parser {
 		return tmp;
 	}
 	
-	public List<Arbre> nonterm_Abb() throws Exception {
+	public ArrayList<Arbre> nonterm_Abb() throws Exception {
 		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
 		String [] tab = new String [3];
 		reader.eat(Sym.ABB);
@@ -80,12 +80,14 @@ class Parser {
 		reader.eat(Sym.MOT);
 		reader.eat(Sym.FINACCOLADE);
 		reader.eat(Sym.DEBUTACCOLADE);
-		if (reader.check(Sym.BF))
+		if (reader.check(Sym.BF)){
 			tab[2] = "bf";
-		else if (reader.check(Sym.IT))
+			reader.eat(Sym.BF);
+		}else if (reader.check(Sym.IT)){
 			tab[2] = "it";
-		else if (reader.check(Sym.DEBUTACCOLADE))
-			tab[2] = "rien";
+			reader.eat(Sym.IT);
+		}else if (reader.check(Sym.DEBUTACCOLADE))
+			tab[2] = "none";
 		reader.eat(Sym.DEBUTACCOLADE);
 		String a ="";
 		while (reader.check(Sym.MOT)){
@@ -96,7 +98,7 @@ class Parser {
 		reader.eat(Sym.FINACCOLADE);
 		reader.eat(Sym.FINACCOLADE);
 		stockage.add(tab);
-		tmp.add(new Arbre(nonterm_Declaration()));
+		tmp.add(new Arbre("",nonterm_Declaration()));
 		return tmp;
 	}
 	
@@ -167,13 +169,30 @@ class Parser {
 				}
 			} else if (reader.check(Sym.RACCOURCI)) {
 				reader.eat(Sym.RACCOURCI);
-				String c = reader.getValue();
+				String abbreviation = recherche(reader.getValue());
 				reader.eat(Sym.MOT);
+				res = new Arbre(abbreviation,nonterm_SuiteElem());
 			}
 		}
 		return res;
 	}
 	
+	private String recherche(String cle){
+		String res = "" ;
+		for (int i = 0; i < stockage.size(); i++){
+			if (stockage.get(i)[0].equals(cle)){
+				if (stockage.get(i)[2].equals("bf"))
+					res = " <b> "+stockage.get(i)[1]+" </b> ";
+				else if (stockage.get(i)[2].equals("it"))
+					res = " <i> "+stockage.get(i)[1]+" </i> ";
+				if (stockage.get(i)[2].equals("none"))
+					res = stockage.get(i)[1];
+				break;
+			}
+		}
+		
+		return res;
+	}
 	
 	private Arbre nonterm_Enum() throws Exception {
 		reader.eat(Sym.DEBUTENUM);
