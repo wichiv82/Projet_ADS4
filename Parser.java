@@ -118,7 +118,6 @@ class Parser {
 
 	private List<Arbre> nonterm_SuiteElem() throws Exception {
 		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
-		// Recontrer un Token de balise fermante revient à trouver un epsilon dres ce cas
 		if (!epsilon()) {
 			tmp.add(nonterm_Elem());
 			tmp.addAll(nonterm_SuiteElem());
@@ -203,7 +202,6 @@ class Parser {
 	
 	private List<Arbre> nonterm_SuiteItems() throws Exception {
 		ArrayList<Arbre> tmp = new ArrayList<Arbre>();
-		// On continue à chercher des items tant qu'on a pas atteint la fin de l'enum
 		if (!reader.check(Sym.FINENUM)) {
 			tmp.add(nonterm_Item());
 			tmp.addAll(nonterm_SuiteItems());
