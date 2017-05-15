@@ -35,9 +35,8 @@
 
 
 
-blank = [\n\r \t] 
+blank = [\n\r\t ] 
 
-//string = \"[^\"]*\"
 mot = [a-zA-Z0-9:;,.?!\']+
 CONSTANTE_COULEUR = #[A-F0-9]{6}
    

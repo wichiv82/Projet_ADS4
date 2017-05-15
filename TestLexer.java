@@ -16,6 +16,6 @@ class TestLexer {
 			t=lexer.yylex();
 			System.out.println(t);
 		}
-		while(t.symbol!=Sym.EOF);  
+		while(t.symbole!=Sym.EOF);  
 	}
 }
